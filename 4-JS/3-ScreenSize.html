@@ -1,0 +1,43 @@
+<!DOCTYPE html>   					     	   
+<html lang="en">   					     	   
+    <head>   					     	   
+        <style>   					     	   
+            body{   					     	   
+                display: flex;   					     	   
+                flex-wrap: wrap;   					     	   
+            }   					     	   
+        </style>   					     	   
+    </head>   					     	   
+    <body onresize="onResize();">   					     	   
+        <div id="dWidth">dWidth</div>   					     	   
+        <div id="dHeight">dHeight</div>   					     	   
+        <div id="dSize">dSize</div>   					     	   
+        <div id="dNbRedim">dNbRedim</div>   					     	   
+        <canvas id="canvas"></canvas>   					     	   
+   					     	   
+        <script>   					     	   
+            var saves = [];   					     	   
+            onResize();   					     	   
+   					     	   
+            function onResize(){   					     	   
+                var Width = document.body.clientWidth;   					     	   
+                var Height = document.body.clientHeight;   					     	   
+                var Size = Width*Height;   					     	   
+   					     	   
+                var dWidth = document.getElementById("dWidth");   					     	   
+                var dHeight = document.getElementById("dHeight");   					     	   
+                var dSize = document.getElementById("dSize");   					     	   
+                var dNbRedim = document.getElementById("dNbRedim");   					     	   
+   					     	   
+                dWidth.innerHTML = Width + "*";   					     	   
+                dHeight.innerHTML = Height + "=";   					     	   
+                dSize.innerHTML = Size + ":";   					     	   
+   					     	   
+                save = new Object();   					     	   
+                save.width = Width; save.height = Height; save.size = Size;   					     	   
+                saves.push(save);   					     	   
+                dNbRedim.innerHTML = saves.length;   					     	   
+            }   					     	   
+        </script>   					     	   
+    </body>   					     	   
+</html>   					     	   

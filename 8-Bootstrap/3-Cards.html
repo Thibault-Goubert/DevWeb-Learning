@@ -1,0 +1,156 @@
+<html>   					     	   
+<head>   					     	   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">   					     	   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>   					     	   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>   					     	   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   					     	   
+   					     	   
+<style>   					     	   
+    .card{   					     	   
+        width: 200px;   					     	   
+        border:1px solid;   					     	   
+        display: inline-block;   					     	   
+        margin: 10px;   					     	   
+    }   					     	   
+</style>   					     	   
+   					     	   
+</head>   					     	   
+   					     	   
+<body>   					     	   
+    <div class="card" style="width:200px; background-color:blue;" onclick="change();">   					     	   
+        <div class="card-body">   					     	   
+            <p style="color:white;" class="card-title">Ajout aléatoire</p>   					     	   
+        </div>   					     	   
+    </div>   					     	   
+    <div class="card" style="width:200px; background-color:green;" onclick="openModal();">   					     	   
+        <div class="card-body">   					     	   
+            <p style="color:white;" class="card-title">Ajout</p>   					     	   
+        </div>   					     	   
+    </div>   					     	   
+   					     	   
+    <div class="modal" tabindex="-1" role="dialog">   					     	   
+        <div class="modal-dialog" role="document">   					     	   
+            <div class="modal-content">   					     	   
+   					     	   
+                <div class="modal-header">   					     	   
+                    <h5 class="modal-title">Ajouter une card</h5>   					     	   
+                </div>   					     	   
+   					     	   
+                <div class="modal-body">   					     	   
+                    <form>   					     	   
+                        <input type="text" placeholder="Nom" id="nom">   					     	   
+                        <input type="text" placeholder="Prenom" id="prenom">   					     	   
+                        <input type="text" placeholder="Sexe (f/h)" id="sexe">   					     	   
+                        <input type="url"  placeholder="http://www.exemple.com" id="url">   					     	   
+                    </form>   					     	   
+                </div>   					     	   
+   					     	   
+                <div class="modal-footer">   					     	   
+                    <p id="message"></p>   					     	   
+                    <button type="submit" class="btn btn-primary" onclick="createCardWithModal();">Ajout</button>   					     	   
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>   					     	   
+                </div>   					     	   
+   					     	   
+            </div>   					     	   
+        </div>   					     	   
+    </div>   					     	   
+   					     	   
+  <script>   					     	   
+    var urls = ["https://1.bp.blogspot.com/-jr3MTyi8edM/Wb4XdooBDgI/AAAAAAACOXE/o_Rk9qV6vg4L3nUUVPf3UTVqbw6BhKqOQCLcBGAs/s1600/AW541483_02.gif",   					     	   
+               "https://3.bp.blogspot.com/-Pfp1TGlx5X8/WwYhwgzNQGI/AAAAAAAbyoI/58GzmCkPY3AricgtHcS7LJHJo34ms4C2gCLcBGAs/s1600/AW1088763_03.gif",   					     	   
+               "https://i.pinimg.com/originals/14/2c/fc/142cfc54b46f248299a3dd0328be4086.gif",   					     	   
+               "https://i.pinimg.com/originals/19/47/18/194718b41b543f800140284e30e464c8.gif"];   					     	   
+   					     	   
+    var defaultUrl = ["https://i.skyrock.net/4329/94214329/pics/3253735172_1_7_hK0zIWIA.gif",   					     	   
+                      "https://i.pinimg.com/originals/19/47/18/194718b41b543f800140284e30e464c8.gif"];   					     	   
+   					     	   
+    var nom = ["Goubert","Noot","Mugiwara","Roronoa"];   					     	   
+    var prenom = ["Thibault","Noot","Luffy","Zoro"];   					     	   
+   					     	   
+    function change(){   					     	   
+        var random = Math.floor(Math.random()*urls.length);   					     	   
+   					     	   
+        var n = nom[random];   					     	   
+        var p = prenom[random];   					     	   
+        var u = urls[random];   					     	   
+   					     	   
+        var s = "h";   					     	   
+   					     	   
+        createCard(n,p,u,s);   					     	   
+    }   					     	   
+   					     	   
+    function openModal(){   					     	   
+        $(".modal").modal("show");   					     	   
+    }   					     	   
+   					     	   
+    function createCardWithModal(){   					     	   
+        $("#message").text("");   					     	   
+   					     	   
+        var nom =    $.trim($("#nom").val());   					     	   
+        var prenom = $.trim($("#prenom").val());   					     	   
+        var sexe =   $.trim($("#sexe").val());   					     	   
+        var url =    $.trim($("#url").val());   					     	   
+   					     	   
+        if(!nom){   					     	   
+            $("#message").text("Veuillez entrer un nom!").css("color","red");   					     	   
+            return;   					     	   
+        }   					     	   
+        if(!prenom){   					     	   
+            $("#message").text("Veuillez entrer un prenom!").css("color","red");   					     	   
+            return;   					     	   
+        }   					     	   
+        if(sexe != "f" && sexe != "h"){   					     	   
+            $("#message").text("Veuillez entrer un sexe même pour les non binaires!").css("color","red");   					     	   
+            return;   					     	   
+        }   					     	   
+        if(!url && url != ""){   					     	   
+            $("#message").text("Veuillez entrer une url valide ou laisser vide!").css("color","red");   					     	   
+            return;   					     	   
+        }   					     	   
+        if(!url && sexe == "f"){   					     	   
+            url = defaultUrl[0];   					     	   
+        }   					     	   
+        else if(!url && sexe == "h"){   					     	   
+            url = defaultUrl[1];   					     	   
+        }   					     	   
+   					     	   
+        createCard(nom,prenom,url,sexe);   					     	   
+   					     	   
+   					     	   
+        $("#nom").val("");   					     	   
+        $("#prenom").val("");   					     	   
+        $("#sexe").val("");   					     	   
+        $("#url").val("");   					     	   
+   					     	   
+        $(".modal").modal("hide");   					     	   
+    }   					     	   
+   					     	   
+    function createCard(n,p,u,s){   					     	   
+   					     	   
+        var color;   					     	   
+        if(s == "f"){   					     	   
+            color = "red";   					     	   
+        }   					     	   
+        if(s == "h"){   					     	   
+            color = "blue";   					     	   
+        }   					     	   
+   					     	   
+        var title = $("<p class="+"card-title"+"></p>");   					     	   
+        title.text(n + " " + p);   					     	   
+   					     	   
+        var body = $("<div class="+"card-body"+"></div>");   					     	   
+        body.append(title);   					     	   
+   					     	   
+        var img = $("<img class="+"card-img-top"+" src=\""+ u +"\">");   					     	   
+   					     	   
+        var card = $("<div class="+"card"+"></div>");   					     	   
+        card.append(img);   					     	   
+        card.append(body);   					     	   
+        card.css("border-color",color);   					     	   
+   					     	   
+        $("body").append(card);   					     	   
+    }   					     	   
+   					     	   
+  </script>   					     	   
+</body>   					     	   
+</html>   					     	   

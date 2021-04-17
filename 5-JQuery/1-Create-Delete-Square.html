@@ -1,0 +1,67 @@
+<!DOCTYPE html>   					     	   
+<html lang="en">   					     	   
+    <head>   					     	   
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>   					     	   
+    </head>   					     	   
+    <body>   					     	   
+        <script>   					     	   
+            var nbDiv = 2;   					     	   
+            fit();   					     	   
+   					     	   
+            function fit(){   					     	   
+                var width = window.innerWidth;   					     	   
+   					     	   
+                $("div").each(function( i ) {   					     	   
+                    $(this).width(width/4);   					     	   
+                    $(this).height(width/4);   					     	   
+   					     	   
+                    $(this).css("position", "absolute");   					     	   
+   					     	   
+                    var index = i%7;   					     	   
+                    var bigDec = i/7;   					     	   
+                    console.log("big:" + Math.floor(bigDec)+" index: " + i);   					     	   
+   					     	   
+                    if(index < 4){   					     	   
+                        $(this).css("left", index*(width/4)+"px");   					     	   
+                        $(this).css("top", Math.floor(bigDec)*2*(width/4)+"px");   					     	   
+                    }   					     	   
+                    else{   					     	   
+                        index -= 4;   					     	   
+                        $(this).css("left", index*(width/4)+(width/8)+"px");   					     	   
+                        $(this).css("top", Math.floor(bigDec)*2*(width/4)+(width/4)+"px");   					     	   
+                    }   					     	   
+   					     	   
+                    $(this).css("font-size", $(this).height()/3);   					     	   
+                    $(this).css("line-height", $(this).height()+"px");   					     	   
+                    $(this).css("text-align", "center");   					     	   
+                });   					     	   
+   					     	   
+                $("div").click(function(event){   					     	   
+                    $(this).remove();   					     	   
+                    fit();   					     	   
+                });   					     	   
+            }   					     	   
+   					     	   
+            function createColor(){   					     	   
+                var r = Math.floor(Math.random()*256);   					     	   
+                var g = Math.floor(Math.random()*256);   					     	   
+                var b = Math.floor(Math.random()*256);   					     	   
+   					     	   
+                var color = "rgb("+r+","+g+","+b+")";   					     	   
+                return color;   					     	   
+            }   					     	   
+   					     	   
+            $("body").keydown(function(event){   					     	   
+                if(event.which==32){   					     	   
+                    nbDiv++;   					     	   
+                    var div = $("<div></div>").text(nbDiv);   					     	   
+                    div.css("background-color",createColor());   					     	   
+                    $("body").append(div);   					     	   
+                    fit();   					     	   
+                }   					     	   
+            });   					     	   
+   					     	   
+            window.onresize=fit;   					     	   
+        </script>   					     	   
+    </body>   					     	   
+</html>   					     	   

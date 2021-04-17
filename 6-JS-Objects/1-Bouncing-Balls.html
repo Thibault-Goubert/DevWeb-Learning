@@ -1,0 +1,99 @@
+ <!DOCTYPE html>   					     	   
+<html lang="en">   					     	   
+    <head>   					     	   
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>   					     	   
+    </head>   					     	   
+    <body>   					     	   
+        <canvas id="canvas" width="200px" height="200px" style="border:1px solid #000000">   					     	   
+   					     	   
+        </canvas>   					     	   
+        <script>   					     	   
+   					     	   
+            //Region Variables   					     	   
+            var cnv = document.getElementById("canvas");   					     	   
+            var balls = [];   					     	   
+   					     	   
+            var intervalID = window.setInterval(update,300);   					     	   
+            var isInterval = true;   					     	   
+            //EndofRegion Variables   					     	   
+   					     	   
+            //Region Ball   					     	   
+            var Ball = function(x,y,r,c,dx,dy){   					     	   
+                this.x = x;   					     	   
+                this.y = y;   					     	   
+                this.radius = r;   					     	   
+                this.color = c;   					     	   
+                this.dx = dx;   					     	   
+                this.dy = dy;   					     	   
+            }   					     	   
+            Ball.prototype.draw = function(canvas){   					     	   
+   					     	   
+                var ctx = canvas.getContext("2d");   					     	   
+   					     	   
+                ctx.beginPath();   					     	   
+                ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);   					     	   
+                ctx.fillStyle = this.color;   					     	   
+                ctx.closePath();   					     	   
+                ctx.fill();   					     	   
+            }   					     	   
+            Ball.prototype.move = function(canvas){   					     	   
+                var rad = this.radius/2;   					     	   
+                if((this.x+this.dx-rad)<0 || (this.x+this.dx+rad)>canvas.width){   					     	   
+                    this.dx = -this.dx;   					     	   
+                }   					     	   
+                if((this.y+this.dy-rad)<0 || (this.y+this.dy+rad)>canvas.width){   					     	   
+                    this.dy = -this.dy;   					     	   
+                }   					     	   
+   					     	   
+                this.x+=this.dx;   					     	   
+                this.y+=this.dy;   					     	   
+                this.draw(canvas);   					     	   
+            }   					     	   
+            //EndofRegion Ball   					     	   
+   					     	   
+            //Region Misc   					     	   
+            function getRandomColor(){   					     	   
+                var r = Math.floor(Math.random()*256);   					     	   
+                var g = Math.floor(Math.random()*256);   					     	   
+                var b = Math.floor(Math.random()*256);   					     	   
+   					     	   
+                var col = "rgb("+r+","+g+","+b+")";   					     	   
+                return col;   					     	   
+            }   					     	   
+            function createBall(){   					     	   
+                var plusOrMinus = Math.random() < 0.5 ? -1 : 1;   					     	   
+                var ddx = plusOrMinus * Math.random()*10;   					     	   
+                plusOrMinus = Math.random() < 0.5 ? -1 : 1;   					     	   
+                var ddy = plusOrMinus * Math.random()*10;   					     	   
+   					     	   
+                var ball = new Ball((Math.random()*196)+5,(Math.random()*196)+5,10,getRandomColor(),ddx,ddy);   					     	   
+                ball.draw(canvas);   					     	   
+                balls.push(ball);   					     	   
+            }   					     	   
+            function update(){   					     	   
+                cnv.getContext("2d").clearRect(0,0,canvas.width,canvas.height);   					     	   
+                balls.forEach(elem => elem.move(canvas));   					     	   
+            }   					     	   
+   					     	   
+            $("body").keydown(function(event){   					     	   
+                if(event.which==32){   					     	   
+                    createBall();   					     	   
+                }   					     	   
+            });   					     	   
+   					     	   
+            $("body").keydown(function(event){   					     	   
+                if(event.which==80 && isInterval){   					     	   
+                    clearInterval(intervalID);   					     	   
+                    isInterval = false;   					     	   
+                }   					     	   
+                else if(event.which==80 && !isInterval){   					     	   
+                    intervalID = setInterval(update,150);   					     	   
+                    isInterval = true;   					     	   
+                }   					     	   
+            });   					     	   
+   					     	   
+            //EndofRegion Misc   					     	   
+            createBall();   					     	   
+        </script>   					     	   
+    </body>   					     	   
+</html>   					     	   

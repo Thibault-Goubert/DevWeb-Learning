@@ -1,0 +1,90 @@
+<!DOCTYPE html>   					     	   
+<html lang="en">   					     	   
+    <head>   					     	   
+        <style>   					     	   
+   					     	   
+            .round{   					     	   
+            	border-radius: 20px;   					     	   
+            }   					     	   
+   					     	   
+            .dark{   					     	   
+            	color: white;   					     	   
+            	background-color: #444444;   					     	   
+            	border: 2px solid black;   					     	   
+            }   					     	   
+   					     	   
+            .light{   					     	   
+            	color: #444444;   					     	   
+            	background-color: white;   					     	   
+            	border: 2px solid #BBBBBB;   					     	   
+            }   					     	   
+   					     	   
+            .container{   					     	   
+            	width:300px;   					     	   
+            	height:200px;   					     	   
+            	margin:8px;   					     	   
+            	padding:5px;   					     	   
+            	position:relative;   					     	   
+            	overflow: hidden;   					     	   
+            }   					     	   
+   					     	   
+            .rolling{   					     	   
+            	width:80px;   					     	   
+            	height:80px;   					     	   
+            	margin:3px;   					     	   
+                padding:5px;   					     	   
+            	top:50%;   					     	   
+            	text-align: center;   					     	   
+            	line-height: 40px;   					     	   
+            	border-radius:50%;   					     	   
+            	position:absolute;   					     	   
+            }   					     	   
+   					     	   
+            .rolling:nth-of-type(1){   					     	   
+            	right:-104px;   					     	   
+            	transition: right 1s, transform 1s;   					     	   
+            	transition-delay: 0.90s;   					     	   
+            }   					     	   
+   					     	   
+            .rolling:nth-of-type(2){   					     	   
+            	right:-208px;   					     	   
+            	transition: right 1s, transform 1s;   					     	   
+            	transition-delay: 0.30s;   					     	   
+            }   					     	   
+   					     	   
+            .rolling:nth-of-type(3){   					     	   
+            	right:-312px;   					     	   
+            	transition: right 1s, transform 1s;   					     	   
+            }   					     	   
+   					     	   
+            .container:hover .rolling:nth-of-type(1){   					     	   
+            	right:208px;   					     	   
+            	transform: rotate(-360deg);   					     	   
+            	transition: right 1s, transform 1s;   					     	   
+            }   					     	   
+   					     	   
+            .container:hover .rolling:nth-of-type(2){   					     	   
+            	right:104px;   					     	   
+            	transform: rotate(-360deg);   					     	   
+            	transition: right 1s, transform 1s;   					     	   
+            	transition-delay: 0.60s;   					     	   
+            }   					     	   
+   					     	   
+            .container:hover .rolling:nth-of-type(3){   					     	   
+            	right:0px;   					     	   
+            	transform: rotate(-360deg);   					     	   
+            	transition: right 1s, transform 1s;   					     	   
+            	transition-delay: 1.30s;   					     	   
+            }   					     	   
+   					     	   
+   					     	   
+        </style>   					     	   
+    </head>   					     	   
+    <body>   					     	   
+        <div class="container round dark">   					     	   
+            <div class="rolling round light">A</div>   					     	   
+            <div class="rolling round dark">B</div>   					     	   
+            <div class="rolling round light">C</div>   					     	   
+        </div>   					     	   
+    </body>   					     	   
+</html>   					     	   

@@ -1,0 +1,99 @@
+ <!DOCTYPE html>   					     	   
+<html lang="en">   					     	   
+    <head>   					     	   
+        <style>   					     	   
+            #dQuizz{   					     	   
+                visibility: visible;   					     	   
+            }   					     	   
+            #dResultat{   					     	   
+                visibility: hidden;   					     	   
+            }   					     	   
+        </style>   					     	   
+    </head>   					     	   
+    <body>   					     	   
+        <div id='dQuizz'>   					     	   
+            <p id='pQuestion'></p>   					     	   
+            <p>   					     	   
+                <button class='btnVrai' id='btnVrai' onclick='vrai();' value='vrai'>Vrai</button>   					     	   
+                <button class='btnFaux' id='btnFaux' onclick='faux();' value='faux'>Faux</button>   					     	   
+            </p>   					     	   
+        </div>   					     	   
+        <div id='dResultats'>   					     	   
+   					     	   
+        </div>   					     	   
+   					     	   
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>   					     	   
+        <script>   					     	   
+        var array = [[],[]];   					     	   
+        array[0].push('Ceci est la question 1 (vrai)');   					     	   
+        array[1].push('vrai');   					     	   
+        array[0].push('Ceci est la question 2 (faux)');   					     	   
+        array[1].push('faux');   					     	   
+        array[0].push('Ceci est la question 3 (vrai)');   					     	   
+        array[1].push('vrai');   					     	   
+        array[0].push('Ceci est la question 4 (faux)');   					     	   
+        array[1].push('faux');   					     	   
+   					     	   
+        var pQuestion = document.getElementById('pQuestion');   					     	   
+        pQuestion.innerHTML = array[0][0];   					     	   
+   					     	   
+        var nbQuestion = 0;   					     	   
+        var answer = '';   					     	   
+        var correct = 0;   					     	   
+        var incorrect = 0;   					     	   
+   					     	   
+        function vrai(){   					     	   
+            answer=document.getElementsByClassName('btnVrai')[0].value;   					     	   
+            update();   					     	   
+        }   					     	   
+        function faux(){   					     	   
+            answer=document.getElementsByClassName('btnFaux')[0].value;   					     	   
+            update();   					     	   
+        }   					     	   
+   					     	   
+        function update(){   					     	   
+            if(answer == array[1][nbQuestion]){   					     	   
+                correct++;   					     	   
+            }   					     	   
+            else{   					     	   
+                incorrect++;   					     	   
+            }   					     	   
+            nbQuestion++;   					     	   
+   					     	   
+            if(array[0].length > nbQuestion)   					     	   
+                pQuestion.innerHTML = array[0][nbQuestion];   					     	   
+            else{   					     	   
+                results();   					     	   
+   					     	   
+                //var pResultats = document.getElementById('pResultats');   					     	   
+                //pResultats.innerHTML = correct+'/'+array.length;   					     	   
+   					     	   
+            }   					     	   
+        }   					     	   
+   					     	   
+        google.charts.load('current', {'packages':['corechart']});   					     	   
+        google.charts.setOnLoadCallback(drawChart);   					     	   
+   					     	   
+        function drawChart() {   					     	   
+            var data = google.visualization.arrayToDataTable([   					     	   
+            ['Results', 'Values'],   					     	   
+            ['Correct', correct],   					     	   
+            ['Incorrect', incorrect]]);   					     	   
+            var chart = new google.visualization.PieChart(document.getElementById('dResultats'));   					     	   
+            chart.draw(data);   					     	   
+        }   					     	   
+   					     	   
+        function results(){   					     	   
+            var dQuizz = document.getElementById('dQuizz');   					     	   
+            var dResultats = document.getElementById('dResultats');   					     	   
+   					     	   
+            dQuizz.style.display = "none";   					     	   
+            dResultats.style.visibility = "visible";   					     	   
+   					     	   
+            drawChart();   					     	   
+   					     	   
+        }   					     	   
+        </script>   					     	   
+    </body>   					     	   
+   					     	   
+</html>   					     	   

@@ -1,0 +1,238 @@
+<html>   					     	   
+<head>   					     	   
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">   					     	   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>   					     	   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>   					     	   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   					     	   
+   					     	   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>   					     	   
+</head>   					     	   
+   					     	   
+<body>   					     	   
+    <table class="table">   					     	   
+        <tbody>   					     	   
+            <tr>   					     	   
+                <td>   					     	   
+                    <input type="text" id="Titre" readonly="true" placeholder="Pas encore de titre"/>   					     	   
+                    <button onclick="btnSaveOnClick();" type="button" class="btn btn-primary">   					     	   
+                        <img src="https://cdn.discordapp.com/attachments/383342653170909186/653303514910556170/58c7f4d5e665570916c65410.png"   					     	   
+                             style="width: 24px;">   					     	   
+                    </button>   					     	   
+   					     	   
+                    <button class="btn btn-primary" onclick="showModal();">Save As</button>   					     	   
+                    <div class="btn-group">   					     	   
+                        <button type="button" class="btn btn-secondary dropdown-toggle"   					     	   
+                              data-toggle="dropdown" aria-haspopup="true"   					     	   
+                              aria-expanded="false">   					     	   
+                        Saves   					     	   
+                        </button>   					     	   
+                        <div class="dropdown-menu dropdown-menu-right" id="saves">   					     	   
+                        </div>   					     	   
+                    </div>   					     	   
+   					     	   
+                    <button onclick="test();">test</button>   					     	   
+                    <button onclick="clearStorage();">clear</button>   					     	   
+                </td>   					     	   
+            </tr>   					     	   
+            <tr>   					     	   
+                <td>   					     	   
+                    <textarea class="col-12 autosize" id="textArea"></textarea>   					     	   
+                </td>   					     	   
+            </tr>   					     	   
+        </tbody>   					     	   
+    </table>   					     	   
+   					     	   
+    <div class="modal" tabindex="-1" role="dialog">   					     	   
+        <div class="modal-dialog" role="document">   					     	   
+            <div class="modal-content">   					     	   
+   					     	   
+                <div class="modal-header">   					     	   
+                    <h5 class="modal-title">Donnez un titre</h5>   					     	   
+                </div>   					     	   
+   					     	   
+                <div class="modal-body">   					     	   
+                    <form>   					     	   
+                        <input type="text" placeholder="Titre" id="modalTitre">   					     	   
+                    </form>   					     	   
+                </div>   					     	   
+   					     	   
+                <div class="modal-footer">   					     	   
+                    <p id="message"></p>   					     	   
+                    <button type="submit" class="btn btn-primary" onclick="saveAs();">Save as</button>   					     	   
+                    <button type="button" class="btn btn-secondary" onclick="closeModal();">Close</button>   					     	   
+                </div>   					     	   
+   					     	   
+            </div>   					     	   
+        </div>   					     	   
+    </div>   					     	   
+   					     	   
+   <script>   					     	   
+        var storage = window.localStorage;   					     	   
+        var currentSave;   					     	   
+   					     	   
+        $(document).ready(function(){   					     	   
+            if(storage.length>0)   					     	   
+            {   					     	   
+                var lastUpdate = new Date(0);   					     	   
+                for(var i=0;i<storage.length;i++){   					     	   
+                    var myData = JSON.parse(storage.getItem("test"+i));   					     	   
+                    if(new Date(myData.date) > lastUpdate){   					     	   
+                        lastUpdate = new Date(myData.date);   					     	   
+                        currentSave = myData;   					     	   
+                        console.log("Load: " + currentSave.title);   					     	   
+                    }   					     	   
+   					     	   
+                }   					     	   
+                $("#textArea").val(currentSave.text);   					     	   
+                $("#Titre").val(currentSave.title);   					     	   
+                setDropdown();   					     	   
+            }   					     	   
+            //Ca c'est fumé quand meme :3   					     	   
+            $("textarea").height( $("textarea")[0].scrollHeight );   					     	   
+        });   					     	   
+   					     	   
+        $('.autosize').keydown(function () {   					     	   
+            autoresize(this);   					     	   
+        });   					     	   
+        function autoresize(textarea) {   					     	   
+            textarea.style.height = '0px';     //Reset height, so that it not only grows but also shrinks   					     	   
+            textarea.style.height = (textarea.scrollHeight+10) + 'px';    //Set new height   					     	   
+        }   					     	   
+   					     	   
+        function btnSaveOnClick(){   					     	   
+            if(currentSave && testModif()){   					     	   
+                modifData();   					     	   
+            }   					     	   
+            else{   					     	   
+                showModal();   					     	   
+            }   					     	   
+        };   					     	   
+        function modifData(){   					     	   
+            currentSave.text = $("#textArea").val();   					     	   
+            currentSave.date = new Date();   					     	   
+            var currentSave_JSON = JSON.stringify(currentSave);   					     	   
+            storage.setItem(currentSave.id, currentSave_JSON);   					     	   
+        };   					     	   
+        function showModal(){   					     	   
+            $(".modal").modal("show");   					     	   
+        };   					     	   
+        function closeModal(){   					     	   
+            $("#modalTitre").val("");   					     	   
+            $("#message").text("");   					     	   
+            $(".modal").modal("hide");   					     	   
+        };   					     	   
+        //Fonction Test   					     	   
+        function clearStorage(){   					     	   
+            storage.clear();   					     	   
+            clearDropdown();   					     	   
+            $("#textArea").val("");   					     	   
+            $("#Titre").val("");   					     	   
+            currentSave = undefined;   					     	   
+            console.log("cleared");   					     	   
+        };   					     	   
+        function test(){   					     	   
+            for(var i=0;i<storage.length;i++){   					     	   
+                var mydata = JSON.parse(storage.getItem("test"+i));   					     	   
+                console.log("Key:" + storage.key(i));   					     	   
+                console.log("Text: " + mydata.text + " Title: " + mydata.title + " Id: " + mydata.id);   					     	   
+                console.log("Date: " + new Date(mydata.date));   					     	   
+            }   					     	   
+        };   					     	   
+        //Fonction Test   					     	   
+   					     	   
+        function saveAs(){   					     	   
+            saveText($("#modalTitre").val());   					     	   
+        };   					     	   
+        function isTitleAvailable(titre){   					     	   
+            if(storage.length>0)   					     	   
+            {   					     	   
+                for(var i=0;i<storage.length;i++){   					     	   
+                    var myData = JSON.parse(storage.getItem("test"+i));   					     	   
+                    if(titre == myData.title){   					     	   
+                        return false;   					     	   
+                    }   					     	   
+   					     	   
+                }   					     	   
+            }   					     	   
+            return true;   					     	   
+        };   					     	   
+        function saveText(titre){   					     	   
+            if(isTitleAvailable(titre)){   					     	   
+                var t = $("#textArea").val();   					     	   
+                var d = new Date();   					     	   
+   					     	   
+                var data = {   					     	   
+                    title : titre,   					     	   
+                    date : d,   					     	   
+                    text : t,   					     	   
+                    id : "test" + storage.length   					     	   
+                };   					     	   
+                currentSave = data;   					     	   
+   					     	   
+                var data_json = JSON.stringify(data);   					     	   
+                var key = data.id;   					     	   
+   					     	   
+                storage.setItem(key, data_json);   					     	   
+                console.log(storage.length);   					     	   
+                addDropdown(key, titre);   					     	   
+   					     	   
+                $("#Titre").val(data.title);   					     	   
+                $(".modal").modal("hide");   					     	   
+            }   					     	   
+            else{   					     	   
+                $("#message").text("Titre déjà utilisé!").css("color","red");;   					     	   
+            }   					     	   
+   					     	   
+        };   					     	   
+        function testModif(){   					     	   
+            if(currentSave.text != $("#textArea").val()){   					     	   
+                return true;   					     	   
+            }   					     	   
+            else{   					     	   
+                return false;   					     	   
+            }   					     	   
+        };   					     	   
+        function getText(key){   					     	   
+            var mydata = JSON.parse(storage.getItem(key));   					     	   
+            return mydata.text;   					     	   
+        };   					     	   
+        function loadText(key){   					     	   
+            if(testModif()){   					     	   
+                modifData();   					     	   
+            }   					     	   
+   					     	   
+            var mydata = JSON.parse(storage.getItem(key));   					     	   
+            $("#textArea").val(mydata.text);   					     	   
+            $("#Titre").val(mydata.title);   					     	   
+            currentSave = mydata;   					     	   
+        };   					     	   
+        function addDropdown(key, title){   					     	   
+            var btn = "<button class=\"dropdown-item dropdownItem\" type=\"button\" onclick=\"loadText('"+key+"');\">"+title+"</button>";   					     	   
+            $("#saves").append(btn);   					     	   
+        };   					     	   
+        function setDropdown(){   					     	   
+            for(var i=0;i<storage.length;i++){   					     	   
+                var mydata = JSON.parse(storage.getItem("test"+i));   					     	   
+                addDropdown(mydata.id, mydata.title);   					     	   
+            }   					     	   
+        };   					     	   
+        function clearDropdown(){   					     	   
+            $(".dropdownItem").each(function(){   					     	   
+                $(this).remove();   					     	   
+            });   					     	   
+        };   					     	   
+   					     	   
+        window.onbeforeunload = function()   					     	   
+        {   					     	   
+            if(!currentSave){   					     	   
+                saveText("default");   					     	   
+            }   					     	   
+            else if(testModif())   					     	   
+            {   					     	   
+                modifData();   					     	   
+            }   					     	   
+        };   					     	   
+   					     	   
+   </script>   					     	   
+</body>   					     	   
+</html>   					     	   

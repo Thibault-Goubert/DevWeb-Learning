@@ -1,0 +1,77 @@
+<!DOCTYPE html>   					     	   
+<html lang="en">   					     	   
+    <head>   					     	   
+        <style>   					     	   
+            .face{   					     	   
+                background-color: black;   					     	   
+                color:white;   					     	   
+                position: absolute;   					     	   
+                width:190px;   					     	   
+                height:190px;   					     	   
+                line-height: 200px;   					     	   
+                text-align: center;   					     	   
+                font-size: 5em;   					     	   
+                border: white 5px solid;   					     	   
+            }   					     	   
+   					     	   
+            /*-------------------*/   					     	   
+            .container {   					     	   
+                margin:25vw;   					     	   
+            	perspective: 1000px;   					     	   
+            	perspective-origin: 1% -800px;   					     	   
+            }   					     	   
+            .cube {   					     	   
+            	width: 190px;   					     	   
+            	transform-style: preserve-3d;   					     	   
+            	animation: spin 10s infinite linear;   					     	   
+            }   					     	   
+            @keyframes spin {   					     	   
+            	from { transform: rotateY(0); }   					     	   
+            	to { transform: rotateY(-360deg); }   					     	   
+            }   					     	   
+            /*-------------------*/   					     	   
+   					     	   
+            #A{   					     	   
+                background-color: blue;   					     	   
+                transform: translateZ(100px);   					     	   
+            }   					     	   
+            #B{   					     	   
+                background-color: red;   					     	   
+                transform: rotateX(90deg) translateY(-100px);   					     	   
+	            transform-origin: top center;   					     	   
+            }   					     	   
+            #C{   					     	   
+                background-color: black;   					     	   
+                transform: rotateX(90deg) translateY(100px);   					     	   
+	            transform-origin: bottom center;   					     	   
+            }   					     	   
+            #D{   					     	   
+                background-color: orange;   					     	   
+                transform: rotateY(-270deg) translateX(100px);   					     	   
+	            transform-origin: top right;   					     	   
+            }   					     	   
+            #E{   					     	   
+                background-color: purple;   					     	   
+                transform: rotateY(270deg) translateX(-100px);   					     	   
+	            transform-origin: center left;   					     	   
+            }   					     	   
+            #F{   					     	   
+                background-color: green;   					     	   
+                transform: translateZ(-100px) rotateY(180deg);   					     	   
+            }   					     	   
+   					     	   
+        </style>   					     	   
+    </head>   					     	   
+    <body>   					     	   
+    <div class="container">   					     	   
+        <div class="cube">   					     	   
+            <div class="face" id="A">A</div>   					     	   
+            <div class="face" id="B">B</div>   					     	   
+            <div class="face" id="C">C</div>   					     	   
+            <div class="face" id="D">D</div>   					     	   
+            <div class="face" id="E">E</div>   					     	   
+            <div class="face" id="F">F</div>   					     	   
+            </div>   					     	   
+        </div>   					     	   
+    </body>   					     	   
+</html>   					     	   

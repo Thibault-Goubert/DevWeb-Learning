@@ -1,0 +1,219 @@
+<html>   					     	   
+<head>   					     	   
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">   					     	   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>   					     	   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>   					     	   
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>   					     	   
+</head>   					     	   
+   					     	   
+<body>   					     	   
+    <table class="table table-striped">   					     	   
+        <thead class="thead-dark">   					     	   
+            <tr>   					     	   
+              <th scope="col">#</th>   					     	   
+              <th scope="col">Prénom</th>   					     	   
+              <th scope="col">Nom</th>   					     	   
+              <th scope="col">Parti</th>   					     	   
+              <th scope="col">Votes</th>   					     	   
+              <th scope="col">Actions</th>   					     	   
+            </tr>   					     	   
+        </thead>   					     	   
+        <tbody>   					     	   
+            <tr>   					     	   
+                <th scope="row">1</th>   					     	   
+                <td>Marine</td>   					     	   
+                <td>Le Pen</td>   					     	   
+                <td>Rassemblement National</td>   					     	   
+                <td><span class="badge 0">0</span></td>   					     	   
+                <td>   					     	   
+                    <button type="button" class="btn btn-success" id="0">Vote</button>   					     	   
+                    <button type="button" class="btn btn-warning" id="5">Retract</button>   					     	   
+                    <button type="button" class="btn btn-danger"  id="10">Reset</button>   					     	   
+                </td>   					     	   
+            </tr>   					     	   
+            <tr>   					     	   
+                <th scope="row">2</th>   					     	   
+                <td>Christian</td>   					     	   
+                <td>Jacob</td>   					     	   
+                <td>Les Républicains</td>   					     	   
+                <td><span class="badge 1">0</span></td>   					     	   
+                <td>   					     	   
+                    <button type="button" class="btn btn-success" id="1">Vote</button>   					     	   
+                    <button type="button" class="btn btn-warning" id="6">Retract</button>   					     	   
+                    <button type="button" class="btn btn-danger"  id="11">Reset</button>   					     	   
+                </td>   					     	   
+            </tr>   					     	   
+            <tr>   					     	   
+                <th scope="row">3</th>   					     	   
+                <td>Emmanuel</td>   					     	   
+                <td>Macron</td>   					     	   
+                <td>La République en Marche</td>   					     	   
+                <td><span class="badge 2">0</span></td>   					     	   
+                <td>   					     	   
+                    <button type="button" class="btn btn-success" id="2">Vote</button>   					     	   
+                    <button type="button" class="btn btn-warning" id="7">Retract</button>   					     	   
+                    <button type="button" class="btn btn-danger"  id="12">Reset</button>   					     	   
+                </td>   					     	   
+            </tr>   					     	   
+            <tr>   					     	   
+                <th scope="row">2</th>   					     	   
+                <td>Olivier</td>   					     	   
+                <td>Faure</td>   					     	   
+                <td>Parti Socialiste</td>   					     	   
+                <td><span class="badge 3">0</span></td>   					     	   
+                <td>   					     	   
+                    <button type="button" class="btn btn-success" id="3">Vote</button>   					     	   
+                    <button type="button" class="btn btn-warning" id="8">Retract</button>   					     	   
+                    <button type="button" class="btn btn-danger"  id="13">Reset</button>   					     	   
+                </td>   					     	   
+            </tr>   					     	   
+            <tr>   					     	   
+                <th scope="row">3</th>   					     	   
+                <td>Jean-Luc</td>   					     	   
+                <td>Mélenchon</td>   					     	   
+                <td>La France Insoumise</td>   					     	   
+                <td><span class="badge 4">0</span></td>   					     	   
+                <td>   					     	   
+                    <button type="button" class="btn btn-success" id="4">Vote</button>   					     	   
+                    <button type="button" class="btn btn-warning" id="9">Retract</button>   					     	   
+                    <button type="button" class="btn btn-danger"  id="14">Reset</button>   					     	   
+                </td>   					     	   
+            </tr>   					     	   
+        </tbody>   					     	   
+    </table>   					     	   
+   					     	   
+    <div class="progress">   					     	   
+        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>   					     	   
+    </div>   					     	   
+   					     	   
+    <div class="toast" style="position: fixed; top: 0; right: 0;">   					     	   
+        <div class="toast-header">   					     	   
+            <strong>Error message</strong>   					     	   
+        </div>   					     	   
+        <div class="toast-body" id="error-message">   					     	   
+        </div>   					     	   
+    </div>   					     	   
+   					     	   
+    <script>   					     	   
+        //Variables   					     	   
+        var votes = [];   					     	   
+        $(".badge").each(function(i){   					     	   
+            votes.push(0);   					     	   
+        });   					     	   
+   					     	   
+        var min;   					     	   
+        var max;   					     	   
+        var success = " badge-success ";   					     	   
+        var danger = " badge-danger ";   					     	   
+   					     	   
+        var maxNbVotes = 10;   					     	   
+        var nbVotes = 0;   					     	   
+        var progress = 0;   					     	   
+   					     	   
+        //Fonctions   					     	   
+        $(".btn-success").on('click',function(){   					     	   
+            if($(this).attr("id")==4){   					     	   
+                alert("Communiste!");   					     	   
+            }   					     	   
+            if($(this).attr("id")==0){   					     	   
+                alert("Capitaliste!");   					     	   
+            }   					     	   
+   					     	   
+            if(nbVotes<maxNbVotes){   					     	   
+                var index = $(this).attr("id")%5;   					     	   
+                votes[index]++;   					     	   
+                nbVotes++;   					     	   
+   					     	   
+                var t = "."+index;   					     	   
+                $(t).text(votes[index]);   					     	   
+   					     	   
+                setMinMax();setBarProgress();   					     	   
+            }   					     	   
+            else{   					     	   
+                showToast();   					     	   
+            }   					     	   
+        });   					     	   
+   					     	   
+        $(".btn-warning").on('click',function(){   					     	   
+            var index = $(this).attr("id")%5;   					     	   
+            var t = "."+index;   					     	   
+   					     	   
+            if(0 < $(t).text()){   					     	   
+                votes[index]--;   					     	   
+                nbVotes--;   					     	   
+   					     	   
+                $(t).text(votes[index]);   					     	   
+   					     	   
+                setMinMax();setBarProgress();   					     	   
+            }   					     	   
+        });   					     	   
+        $(".btn-danger").on('click',function(){   					     	   
+   					     	   
+            var index = $(this).attr("id")%5;   					     	   
+            nbVotes -= votes[index];   					     	   
+            votes[index] = 0;   					     	   
+   					     	   
+            var t = "."+index;   					     	   
+            $(t).text(votes[index]);   					     	   
+   					     	   
+            setMinMax();setBarProgress();   					     	   
+        });   					     	   
+   					     	   
+        function setMinMax(){   					     	   
+            min = votes[0];   					     	   
+            max = votes[0];   					     	   
+   					     	   
+            var i;   					     	   
+            for(i=0;i<votes.length;i++){   					     	   
+                if(votes[i]>max){   					     	   
+                    max = votes[i];   					     	   
+                }   					     	   
+                if(votes[i]<min){   					     	   
+                    min = votes[i];   					     	   
+                }   					     	   
+            }   					     	   
+   					     	   
+            setBadgesColors();   					     	   
+        };   					     	   
+   					     	   
+        function setBadgesColors(){   					     	   
+            $(".badge").each(function(i){   					     	   
+                var t = "."+i;   					     	   
+                var nbVotes = $(t).text();   					     	   
+   					     	   
+                if(max==min){   					     	   
+                    $(this).removeClass(danger);   					     	   
+                    $(this).removeClass(success);   					     	   
+                }   					     	   
+                else if(nbVotes == max){   					     	   
+                    $(this).addClass(success);   					     	   
+                    $(this).removeClass(danger);   					     	   
+                }   					     	   
+                else if(nbVotes == min){   					     	   
+                    $(this).addClass(danger);   					     	   
+                    $(this).removeClass(success);   					     	   
+                }   					     	   
+                else{   					     	   
+                    $(this).removeClass(danger);   					     	   
+                    $(this).removeClass(success);   					     	   
+                }   					     	   
+            });   					     	   
+        };   					     	   
+   					     	   
+        function setBarProgress(){   					     	   
+            var progressBar = $(".progress-bar");   					     	   
+   					     	   
+            progress = nbVotes/maxNbVotes * 100;   					     	   
+            progressBar.text(progress + "%");   					     	   
+            progressBar.css('width', progress+'%').attr('aria-valuenow', progress);   					     	   
+        };   					     	   
+   					     	   
+        function showToast(){   					     	   
+            $("#error-message").text("Vote impossible: " + nbVotes+"/"+maxNbVotes);   					     	   
+            $(".toast").toast("show");   					     	   
+        };   					     	   
+   					     	   
+   					     	   
+    </script>   					     	   
+</body>   					     	   
+</html>   					     	   

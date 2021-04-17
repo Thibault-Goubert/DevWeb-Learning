@@ -1,0 +1,53 @@
+<!DOCTYPE html>   					     	   
+<html lang="en">   					     	   
+    <head>   					     	   
+        <script>   					     	   
+            function test(){   					     	   
+   					     	   
+                var testUn = document.getElementById("inpUn");   					     	   
+                var testDeux = document.getElementById("inpDeux");   					     	   
+   					     	   
+                var letters = /^[A-Za-z]+$/;   					     	   
+   					     	   
+                if(!!testUn.value && !!testDeux.value && testUn.value.match(letters) && testDeux.value.match(letters)){   					     	   
+                    console.log(testUn.value + testDeux.value);   					     	   
+   					     	   
+                    var sum1 = 0;   					     	   
+                    for (var i = 0; i < testUn.value.length; i++) {   					     	   
+                        sum1 += testUn.value.charCodeAt(i);   					     	   
+                    }   					     	   
+                    var sum2 = 0;   					     	   
+                    for (var i = 0; i < testDeux.value.length; i++) {   					     	   
+                        sum2 += testDeux.value.charCodeAt(i);   					     	   
+                    }   					     	   
+   					     	   
+                    var min = 0;   					     	   
+                    var max = 0;   					     	   
+                    if(sum1 >= sum2){min = sum2;max = sum1;}   					     	   
+                    else if(sum1 < sum2){min = sum1; max = sum2;}   					     	   
+   					     	   
+                    var res = 100 * min / max;   					     	   
+                    var paragraphe = document.getElementById("p");   					     	   
+                    if(res < 10){   					     	   
+                        paragraphe.innerHTML = res;   					     	   
+                        paragraphe.innerHTML += ' C\’est la friendzone assurée';   					     	   
+                    }   					     	   
+                    else if(res > 90){   					     	   
+                        paragraphe.innerHTML = res;   					     	   
+                        paragraphe.innerHTML += ' Va falloir assurer!';   					     	   
+                    }   					     	   
+                    else{paragraphe.innerHTML = res;}   					     	   
+                }   					     	   
+                else{   					     	   
+                    window.alert("Ceci est un message du gouvernement, vous êtes un peu con");   					     	   
+                }   					     	   
+            }   					     	   
+        </script>   					     	   
+    </head>   					     	   
+    <body>   					     	   
+        <input type="text" id="inpUn" text="salut"/>   					     	   
+        <input type="text" id="inpDeux"/>   					     	   
+        <button id="btnGo" onclick="test();">Go</button>   					     	   
+        <p id="p"></p>   					     	   
+    </body>   					     	   
+</html>   					     	   

@@ -1,0 +1,65 @@
+<!DOCTYPE html>   					     	   
+<html lang="en">   					     	   
+    <head>   					     	   
+        <style>   					     	   
+            .roundsquare{   					     	   
+                background-color: black;   					     	   
+                color:white;   					     	   
+                padding:10px;   					     	   
+                width:180px;   					     	   
+                height:180px;   					     	   
+                text-align: center;   					     	   
+   					     	   
+                line-height: 10px;   					     	   
+                transition:   					     	   
+                    background-color 3s,   					     	   
+                    border-radius 3s,   					     	   
+                    line-height 3s;   					     	   
+            }   					     	   
+            .roundsquare:hover{   					     	   
+                background-color: green;   					     	   
+                border-radius: 50%;   					     	   
+                line-height: 180px;   					     	   
+   					     	   
+                transition:   					     	   
+                    background-color 3s,   					     	   
+                    border-radius 3s,   					     	   
+                    line-height 3s;   					     	   
+            }   					     	   
+   					     	   
+            .Square{   					     	   
+                position: absolute;   					     	   
+                opacity: 100;   					     	   
+   					     	   
+                transition:   					     	   
+                    opacity 3s;   					     	   
+            }   					     	   
+            .roundsquare:hover span[class*="Square"]{   					     	   
+                opacity: 0;   					     	   
+   					     	   
+                transition:   					     	   
+                    opacity 3s;   					     	   
+            }   					     	   
+            .Circle{   					     	   
+                opacity: 0;   					     	   
+   					     	   
+                transition:   					     	   
+                    opacity 3s;   					     	   
+            }   					     	   
+   					     	   
+            .roundsquare:hover span[class*="Circle"]{   					     	   
+                opacity: 100;   					     	   
+   					     	   
+                transition:   					     	   
+                    opacity 3s;   					     	   
+            }   					     	   
+   					     	   
+        </style>   					     	   
+    </head>   					     	   
+    <body>   					     	   
+        <div class="roundsquare">   					     	   
+            <span class="Square">Carré</span>   					     	   
+            <span class="Circle">Rond</span>   					     	   
+        </div>   					     	   
+    </body>   					     	   
+</html>   					     	   

@@ -1,0 +1,116 @@
+<!DOCTYPE html>   					     	   
+<html lang="en">   					     	   
+    <head>   					     	   
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>   					     	   
+    </head>   					     	   
+    <body>   					     	   
+        <script>   					     	   
+            var nbDiv = 0;   					     	   
+            var imagesUrl = [];   					     	   
+            var nbRefresh = 0;   					     	   
+   					     	   
+            $(document).ready(function(){   					     	   
+                parseData(); //Est asynchrone   					     	   
+                createDiv(50);   					     	   
+            });   					     	   
+   					     	   
+            function parseData(){   					     	   
+                nbRefresh++;   					     	   
+                var url = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=984bbfa8e931e5c62ca0782928898b9c&extras=owner_name,url_m&page="+nbRefresh+"&format=json&nojsoncallback=1";   					     	   
+                $.get(url,function(data,status){   					     	   
+                    var i;   					     	   
+                    for(i=0;i<data.photos.photo.length;i++){   					     	   
+                        imagesUrl.push(data.photos.photo[i].url_m);   					     	   
+                    }   					     	   
+                    setImages();   					     	   
+                });   					     	   
+            }   					     	   
+            function setImages(){   					     	   
+                $(".tof").each(function(){   					     	   
+                    var id = $(this).attr("id");   					     	   
+                    var imgUrl = imagesUrl[id];   					     	   
+                    $(this).css("background","url("+imgUrl+") center");   					     	   
+                    $(this).css("background-size","cover");   					     	   
+                });   					     	   
+            }   					     	   
+   					     	   
+            fit();   					     	   
+            function fit(){   					     	   
+                var width = window.innerWidth;   					     	   
+                $("div").each(function(i){   					     	   
+                    $(this).width(width/4);   					     	   
+                    $(this).height(width/4);   					     	   
+   					     	   
+                    $(this).css("position", "absolute");   					     	   
+   					     	   
+                    var index = i%7;   					     	   
+                    var bigDec = i/7;   					     	   
+   					     	   
+                    if(index < 4){   					     	   
+                        $(this).css("left", index*(width/4)+"px");   					     	   
+                        $(this).css("top", Math.floor(bigDec)*2*(width/4)+"px");   					     	   
+                    }   					     	   
+                    else{   					     	   
+                        index -= 4;   					     	   
+                        $(this).css("left", index*(width/4)+(width/8)+"px");   					     	   
+                        $(this).css("top", Math.floor(bigDec)*2*(width/4)+(width/4)+"px");   					     	   
+                    }   					     	   
+   					     	   
+                    $(this).css("font-size", $(this).height()/3);   					     	   
+                    $(this).css("line-height", $(this).height()+"px");   					     	   
+                    $(this).css("text-align", "center");   					     	   
+                });   					     	   
+   					     	   
+                $("div").click(function(event){   					     	   
+                    $(this).remove();   					     	   
+                    nbDiv--;   					     	   
+                    fit();   					     	   
+                });   					     	   
+            }   					     	   
+   					     	   
+            function createColor(){   					     	   
+                var r = Math.floor(Math.random()*256);   					     	   
+                var g = Math.floor(Math.random()*256);   					     	   
+                var b = Math.floor(Math.random()*256);   					     	   
+   					     	   
+                var color = "rgb("+r+","+g+","+b+")";   					     	   
+                return color;   					     	   
+            }   					     	   
+            function createDiv(n){   					     	   
+                if((nbDiv + n) > imagesUrl.length){   					     	   
+                    parseData();   					     	   
+                }   					     	   
+   					     	   
+                var i;   					     	   
+                for(i=0;i<n;i++){   					     	   
+                    var div = $("<div class='tof' id='"+nbDiv+"'></div>");   					     	   
+                    var imgUrl = imagesUrl[nbDiv];   					     	   
+                    div.css("background","url("+imgUrl+") center");   					     	   
+                    div.css("background-size","cover");   					     	   
+                    $("body").append(div);   					     	   
+                    nbDiv++;   					     	   
+                }   					     	   
+                fit();   					     	   
+            }   					     	   
+   					     	   
+            $("body").keydown(function(event){   					     	   
+                if(event.which==32){   					     	   
+                    createDiv(1);   					     	   
+                }   					     	   
+            });   					     	   
+            window.onresize=fit;   					     	   
+   					     	   
+            $(window).scroll(function(){   					     	   
+                var scroll = $(window).scrollTop();   					     	   
+                var winheight = $(window).height();   					     	   
+   					     	   
+                var width = window.innerWidth;   					     	   
+                var test = (((width/4)*2) * (nbDiv/7)) - (width/4);   					     	   
+   					     	   
+                if((scroll+winheight) >= test){   					     	   
+                    createDiv(10);   					     	   
+                }   					     	   
+            });   					     	   
+        </script>   					     	   
+    </body>   					     	   
+</html>   					     	   
